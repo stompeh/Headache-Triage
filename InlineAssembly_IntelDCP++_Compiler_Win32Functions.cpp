@@ -31,10 +31,10 @@ void NormalWin32Call
 // Again this is only my best guess at this time.
 void ReadAccessViolation()
 {
-    const wchar_t boopy[] = L"Boopy";
+	const wchar_t boopy[] = L"Boopy";
 	const wchar_t zoops[] = L"Zoops";
     
-    __asm
+	__asm
 	{
 		lea r8, [zoops]
 		lea rdx, [boopy]
@@ -67,10 +67,10 @@ void ReadAccessViolation()
 //Either way I'm glad it's finally over.
 void FinalWorkingResult()
 {
-    const wchar_t boopy[] = L"Boopy";
+	const wchar_t boopy[] = L"Boopy";
 	const wchar_t zoops[] = L"Zoops";
   
-    __asm
+	__asm
 	{
 		lea r10, MessageBoxExW
 		lea r8, [zoops]
@@ -82,15 +82,15 @@ void FinalWorkingResult()
 		call r10
 	}
     
-    /* When compiled (Visual Studio disassembler):
-     mov         r11,qword ptr [__imp_MessageBoxExW (07FF6C38713A0h)]  
-     lea         r10,[r11]  
-     lea         r8,[zoops]  
-     lea         rdx,[boopy]  
-     xor         eax,eax  
-     mov         ecx,eax  
-     xor         r9d,r9d  
-     mov         dword ptr [rsp+20h],0  
-     call        r10
-    */
+	/* When compiled (Visual Studio disassembler):
+	mov         r11,qword ptr [__imp_MessageBoxExW (07FF6C38713A0h)]  
+	lea         r10,[r11]  
+	lea         r8,[zoops]  
+	lea         rdx,[boopy]  
+	xor         eax,eax  
+	mov         ecx,eax  
+	xor         r9d,r9d  
+	mov         dword ptr [rsp+20h],0  
+	call        r10
+	*/
 }
