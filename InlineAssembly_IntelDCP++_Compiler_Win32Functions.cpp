@@ -4,17 +4,22 @@
 
 
 // The original way of using the Win32 call, and how it looks in a disassembler
-const wchar_t boopy[] = L"Boopy";
-const wchar_t zoops[] = L"Zoops";
-MessageBoxExW(NULL, boopy, zoops, MB_OK, 0);
+void NormalWin32Call
+{
+	const wchar_t boopy[] = L"Boopy";
+	const wchar_t zoops[] = L"Zoops";
+	MessageBoxExW(NULL, boopy, zoops, MB_OK, 0);
 
-lea     r8,[zoops]  
-lea     rdx,[boopy]  
-xor     eax,eax  
-mov     ecx,eax  
-xor     r9d,r9d  
-mov     dword ptr [rsp+20h],0  
-call    qword ptr [__imp_MessageBoxExW (07FF72A5013A0h)]
+	/* When compiled (Visual Studio disassembler):
+	lea     r8,[zoops]  
+	lea     rdx,[boopy]  
+	xor     eax,eax  
+	mov     ecx,eax  
+	xor     r9d,r9d  
+	mov     dword ptr [rsp+20h],0  
+	call    qword ptr [__imp_MessageBoxExW (07FF72A5013A0h)]
+	*/
+}
 //==============================================================================
 
 
@@ -39,16 +44,20 @@ void ReadAccessViolation()
 		mov dword ptr[rsp + 0x20], 0x0
 		call MessageBoxExW
 	}
+	
+	/* When compiled (Visual Studio disassembler):
+	mov         r10,qword ptr [__imp_MessageBoxExW (07FF66A5613A0h)]  
+	lea         r8,[zoops]  
+	lea         rdx,[boopy]  
+	xor         eax,eax  
+	mov         ecx,eax  
+	xor         r9d,r9d  
+	mov         dword ptr [rsp+20h],0  
+	call        qword ptr [r10]
+	*/
 }
 
-mov         r10,qword ptr [__imp_MessageBoxExW (07FF66A5613A0h)]  
-lea         r8,[zoops]  
-lea         rdx,[boopy]  
-xor         eax,eax  
-mov         ecx,eax  
-xor         r9d,r9d  
-mov         dword ptr [rsp+20h],0  
-call        qword ptr [r10]
+
 //==============================================================================
 
 
