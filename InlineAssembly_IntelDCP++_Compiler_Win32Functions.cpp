@@ -4,7 +4,7 @@
 
 
 // The original way of using the Win32 call, and how it looks in a disassembler
-void NormalWin32Call
+void NormalWin32Call()
 {
 	const wchar_t boopy[] = L"Boopy";
 	const wchar_t zoops[] = L"Zoops";
