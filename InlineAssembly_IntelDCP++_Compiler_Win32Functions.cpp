@@ -4,13 +4,14 @@
 
 
 // The original way of using the Win32 call, and how it looks in a disassembler
+// The two character arrays "boopy" and "zoops" are not shown in the dissasembly examples.
 void NormalWin32Call()
 {
 	const wchar_t boopy[] = L"Boopy";
 	const wchar_t zoops[] = L"Zoops";
 	MessageBoxExW(NULL, boopy, zoops, MB_OK, 0);
 
-	/* When compiled (Visual Studio disassembler):
+	/* When compiled (Visual Studio disassembler).:
 	lea     r8,[zoops]  
 	lea     rdx,[boopy]  
 	xor     eax,eax  
